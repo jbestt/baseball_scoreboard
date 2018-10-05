@@ -1,4 +1,3 @@
-import printers
 import data
 
 dp_teams = ["Royals","Dodgers","Cubs"]
@@ -103,8 +102,7 @@ def status(arguments):
                 print("check")
                 game_info = data.get_scoreboard(i)
                 return game_info.game_info()
-            else:
-                return f"Invalid team {arguments[1]}.\n{print_help()}"
+        return f"Invalid team {arguments[1]}.\n{print_help()}"
     else:
         return print_help()
 
