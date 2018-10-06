@@ -85,6 +85,10 @@ def userinput(iostring):
                 return status(ui)
             elif ui[0] == "ump" or ui[0] == "umps" or ui[0] == "umpire" or ui[0] == "umpires":
                 return umpires(ui)
+            elif ui[0] == "replay" or ui[0] == "replays" or ui[0] == "challenge" or ui[0] == "challenges":
+                return challenges(ui)
+            elif ui[0] == "batter" or ui[0] == "batters" or ui[0] == "batting" or ui[0] == "order":
+                return batting_order(ui)
             else:
                 return print_help()
         else:
@@ -100,10 +104,24 @@ def umpires(arguments):
             if arguments[1] == i.lower():
 #                print("check")
                 game_info = data.get_scoreboard(i)
-                return game_info.umpires()
+                return game_info.print_umpires()
         return f"Invalid team {arguments[1]}.\n{print_help()}"
     else:
         return print_help()            
+
+
+def challenges(arguments):         
+    #check for additional args
+    if len(arguments) > 1:
+    #check to see if a team was entered
+        for i in teams:
+            if arguments[1] == i.lower():
+#                print("check")
+                game_info = data.get_scoreboard(i)
+                return game_info.print_challenges()
+        return f"Invalid team {arguments[1]}.\n{print_help()}"
+    else:
+        return print_help()    
 
 
 def status(arguments):         
@@ -118,15 +136,30 @@ def status(arguments):
         return f"Invalid team {arguments[1]}.\n{print_help()}"
     else:
         return print_help()
+    
+    
+def batting_order(arguments):         
+    #check for additional args
+    if len(arguments) > 1:
+    #check to see if a team was entered
+        for i in teams:
+            if arguments[1] == i.lower():
+#                print("check")
+                game_info = data.get_scoreboard(i)
+                return game_info.print_batting_order(data.get_team_id(i))
+        return f"Invalid team {arguments[1]}.\n{print_help()}"
+    else:
+        return print_help()
+
 
 def print_help():
-    help_dialogue = ('Commands\n'                        
+    help_dialogue = ('Commands:\n'                        
         'status [team]\n'
-        '    Returns info for today\'s [team] game\n'
-        '\n'
-        'umpires [team]'
-        '    Returns umpire for the game [team] is/was playing'
-        '\n'
+        '    Returns general info for today\'s [team] game\n'
+        'umpires [team]\n'
+        '    Returns the umpires in today\'s [team] game\n'
+        'replay [team]\n'
+        '    Returns # of replays used/available for today\'s [team] game\n'
         )
             
     return help_dialogue
