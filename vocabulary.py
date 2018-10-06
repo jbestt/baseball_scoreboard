@@ -77,12 +77,14 @@ def userinput(iostring):
             sanitizedstring = sanitizer(iostring.lower())
             #split test into args
             arguments = sanitizedstring.split()
-            print(arguments)
+#            print(arguments)
             ui = fixnames(arguments)
-            print(ui)
+#            print(ui)
             #box scores
             if ui[0] == "box" or ui[0] == "status" or ui[0] == "info":
                 return status(ui)
+            elif ui[0] == "ump" or ui[0] == "umps" or ui[0] == "umpire" or ui[0] == "umpires":
+                return umpires(ui)
             else:
                 return print_help()
         else:
@@ -90,7 +92,18 @@ def userinput(iostring):
     else:
         return print_help()
             
-            
+def umpires(arguments):         
+    #check for additional args
+    if len(arguments) > 1:
+    #check to see if a team was entered
+        for i in teams:
+            if arguments[1] == i.lower():
+#                print("check")
+                game_info = data.get_scoreboard(i)
+                return game_info.umpires()
+        return f"Invalid team {arguments[1]}.\n{print_help()}"
+    else:
+        return print_help()            
 
 
 def status(arguments):         
@@ -99,7 +112,7 @@ def status(arguments):
     #check to see if a team was entered
         for i in teams:
             if arguments[1] == i.lower():
-                print("check")
+#                print("check")
                 game_info = data.get_scoreboard(i)
                 return game_info.game_info()
         return f"Invalid team {arguments[1]}.\n{print_help()}"
@@ -108,9 +121,11 @@ def status(arguments):
 
 def print_help():
     help_dialogue = ('Commands\n'                        
-        'status [Team]\n'
-        '    Returns info for today\'s [Team] game\n'
+        'status [team]\n'
+        '    Returns info for today\'s [team] game\n'
         '\n'
+        'umpires [team]'
+        '    Returns umpire for the game [team] is/was playing'
         '\n'
         )
             

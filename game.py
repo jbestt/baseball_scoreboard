@@ -34,6 +34,8 @@ class Game:
                 self.inning = self.var["liveData"]["linescore"]["currentInning"]
                 self.inning_ordinal = self.var["liveData"]["linescore"]["currentInningOrdinal"]
                 self.inning_state = self.var["liveData"]["linescore"]["inningState"]
+                self.all_officials = self.var["liveData"]["boxscore"]["officials"]
+                
                 
                 if self.game_state_code != "F" and self.game_state_code != "O":
                     self.count_balls = self.var["liveData"]["plays"]["currentPlay"]["count"]["balls"]
@@ -60,6 +62,20 @@ class Game:
             return self.print_fail_status()
         else:
             return "Data unavailable."
+        
+    def umpires(self):
+        if self.game_state_code != "S" and self.game_state_code != "P" and self.game_state_code != "UNPOPULATED":
+            
+            umpstring = f"Umpires for {self.away_team} @ {self.home_team}:"
+            
+            for i in self.all_officials:
+                if i != 0:
+                    umpstring = f"{umpstring}\n"
+                umpstring = f"{umpstring}{i['officialType']}: {i['official']['fullName']}"
+            return umpstring
+        else:
+            umpstring = "Umpire information unavailable."
+            return umpstring
         
     def print_fail_status(self):
         return "Error: No game information was found."
