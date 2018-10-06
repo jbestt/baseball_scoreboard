@@ -4,7 +4,7 @@ import json
 import game
 import pytz
 
-#Days reset at 3am Pacific
+#Running from a server in Central Time. Days reset at 3am Pacific.
 now = datetime.datetime.now()-datetime.timedelta(hours=5, minutes=0)
 
 
