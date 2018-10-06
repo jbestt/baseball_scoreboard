@@ -5,6 +5,7 @@ class Game:
         self.var = scoreboarddata
         
         if "messageNumber" in scoreboarddata or "message" in scoreboarddata:
+            self.gamePk = 0
             self.game_state_code = "UNPOPULATED"
         else:
             
@@ -130,7 +131,7 @@ class Game:
         if self.game_state_code != "S":
             return f"Challenges (Used - Remaining):\n{self.away_team}: {self.away_challenges_used} - {self.away_challenges_remaining}\n{self.home_team}: {self.home_challenges_used} - {self.home_challenges_remaining}"
         else:
-            return "Data unavailable."
+            return "Replay data unavailable."
     
     def print_batting_order(self, team_id):
         if self.game_state_code != "S" and self.game_state_code != "P" and self.game_state_code != "UNPOPULATED":
@@ -175,7 +176,49 @@ class Game:
         else:
             return "Batting order not found."
  
-                
+    def print_pitchers(self, team_id):
+        ###fixme
+        if self.game_state_code != "S" and self.game_state_code != "P" and self.game_state_code != "UNPOPULATED":
+            if team_id == self.away_team_id:
+                batting_order = self.var["liveData"]["boxscore"]["teams"]["away"]["players"]
+                teamdict = {}
+                teamstring = ""
+                for i in batting_order:
+                    if "battingOrder" in self.var["liveData"]["boxscore"]["teams"]["away"]["players"][i]:
+                        playername = self.var['liveData']['boxscore']['teams']['away']['players'][i]['person']['fullName']
+                        playerpos = self.var['liveData']['boxscore']['teams']['away']['players'][i]['position']['abbreviation']
+                        batorder = self.var["liveData"]["boxscore"]["teams"]["away"]["players"][i]["battingOrder"]
+                        teamdict[batorder] = f"{playername} {playerpos}"
+                for d in sorted(teamdict.keys()):
+                    if d != "100":
+                        teamstring = f"{teamstring}\n"
+                    if int(d)%100 == 0:
+                        teamstring = f"{teamstring}{int(int(d)/100)} "
+                    if int(d)%100:
+                        teamstring = f"{teamstring}   \_"
+                    teamstring = f"{teamstring}{teamdict[d]}"
+                return teamstring
+            elif team_id == self.home_team_id:
+                batting_order = self.var["liveData"]["boxscore"]["teams"]["home"]["players"]
+                teamdict = {}
+                teamstring = ""
+                for i in batting_order:
+                    if "battingOrder" in self.var["liveData"]["boxscore"]["teams"]["home"]["players"][i]:
+                        playername = self.var['liveData']['boxscore']['teams']['home']['players'][i]['person']['fullName']
+                        playerpos = self.var['liveData']['boxscore']['teams']['home']['players'][i]['position']['abbreviation']
+                        batorder = self.var["liveData"]["boxscore"]["teams"]["home"]["players"][i]["battingOrder"]
+                        teamdict[batorder] = f"{playername} {playerpos}"
+                for d in sorted(teamdict.keys()):
+                    if d != "100":
+                        teamstring = f"{teamstring}\n"
+                    if int(d)%100 == 0:
+                        teamstring = f"{teamstring}{int(int(d)/100)} "
+                    if int(d)%100:
+                        teamstring = f"{teamstring}   \_"
+                    teamstring = f"{teamstring}{teamdict[d]}"
+                return teamstring
+        else:
+            return "Batting order not found."            
     
     
     

@@ -87,8 +87,10 @@ def userinput(iostring):
                 return umpires(ui)
             elif ui[0] == "replay" or ui[0] == "replays" or ui[0] == "challenge" or ui[0] == "challenges":
                 return challenges(ui)
-            elif ui[0] == "batter" or ui[0] == "batters" or ui[0] == "batting" or ui[0] == "order":
+            elif ui[0] == "batter" or ui[0] == "batters" or ui[0] == "batting" or ui[0] == "order" or ui[0] == "lineup":
                 return batting_order(ui)
+            elif ui[0] == "pitcher" or ui[0] == "pitchers" or ui[0] == "bullpen" or ui[0] == "relief":
+                return pitchers(ui)
             else:
                 return print_help()
         else:
@@ -151,6 +153,18 @@ def batting_order(arguments):
     else:
         return print_help()
 
+def pitchers(arguments):         
+    #check for additional args
+    if len(arguments) > 1:
+    #check to see if a team was entered
+        for i in teams:
+            if arguments[1] == i.lower():
+#                print("check")
+                game_info = data.get_scoreboard(i)
+                return game_info.print_pitchers(data.get_team_id(i))
+        return f"Invalid team {arguments[1]}.\n{print_help()}"
+    else:
+        return print_help()
 
 def print_help():
     help_dialogue = ('Commands:\n'                        
@@ -160,6 +174,10 @@ def print_help():
         '    Returns the umpires in today\'s [team] game\n'
         'replay [team]\n'
         '    Returns # of replays used/available for today\'s [team] game\n'
+        'batters [team]\n'
+        '    Returns the batting order for today\'s [team] game\n'
+        'pitchers [team]\n'
+        '    Returns the pitchers on the roster for today\'s [team] game'
         )
             
     return help_dialogue
