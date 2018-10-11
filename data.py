@@ -6,8 +6,8 @@ import pytz
 
 #Running from a server in Central Time. Days reset at 3am Pacific.
 now = datetime.datetime.now()-datetime.timedelta(hours=5, minutes=0)
-
-
+#deug, remove line below
+now = datetime.datetime.now()-datetime.timedelta(days=2, hours=5, minutes=0)
 def get_team_names():
     return ["Royals","Dodgers","Cubs"]
 

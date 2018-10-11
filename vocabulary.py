@@ -89,14 +89,34 @@ def userinput(iostring):
                 return challenges(ui)
             elif ui[0] == "batter" or ui[0] == "batters" or ui[0] == "batting" or ui[0] == "order" or ui[0] == "lineup":
                 return batting_order(ui)
-            elif ui[0] == "pitcher" or ui[0] == "pitchers" or ui[0] == "bullpen" or ui[0] == "relief":
+            elif ui[0] == "pitcher" or ui[0] == "pitchers":
                 return pitchers(ui)
+            elif ui[0] == "bench":
+                return bench(ui)
+            elif ui[0] == "bullpen" or ui[0] == "pen" or ui[0] == "relievers" or ui[0] == "relief":
+                return bullpen(ui)
+            elif ui[0] == "pk":
+                return pk(ui)
             else:
                 return print_help()
         else:
             return print_help()
     else:
         return print_help()
+
+
+def pk(arguments):         
+    #check for additional args
+    if len(arguments) > 1:
+    #check to see if a team was entered
+        for i in teams:
+            if arguments[1] == i.lower():
+                game_info = data.get_scoreboard(i)
+                return game_info.print_pk()
+        return f"Invalid team {arguments[1]}.\n{print_help()}"
+    else:
+        return print_help()  
+
             
 def umpires(arguments):         
     #check for additional args
@@ -104,7 +124,6 @@ def umpires(arguments):
     #check to see if a team was entered
         for i in teams:
             if arguments[1] == i.lower():
-#                print("check")
                 game_info = data.get_scoreboard(i)
                 return game_info.print_umpires()
         return f"Invalid team {arguments[1]}.\n{print_help()}"
@@ -118,7 +137,6 @@ def challenges(arguments):
     #check to see if a team was entered
         for i in teams:
             if arguments[1] == i.lower():
-#                print("check")
                 game_info = data.get_scoreboard(i)
                 return game_info.print_challenges()
         return f"Invalid team {arguments[1]}.\n{print_help()}"
@@ -132,7 +150,6 @@ def status(arguments):
     #check to see if a team was entered
         for i in teams:
             if arguments[1] == i.lower():
-#                print("check")
                 game_info = data.get_scoreboard(i)
                 return game_info.game_info()
         return f"Invalid team {arguments[1]}.\n{print_help()}"
@@ -146,12 +163,12 @@ def batting_order(arguments):
     #check to see if a team was entered
         for i in teams:
             if arguments[1] == i.lower():
-#                print("check")
                 game_info = data.get_scoreboard(i)
                 return game_info.print_batting_order(data.get_team_id(i))
         return f"Invalid team {arguments[1]}.\n{print_help()}"
     else:
         return print_help()
+
 
 def pitchers(arguments):         
     #check for additional args
@@ -159,12 +176,38 @@ def pitchers(arguments):
     #check to see if a team was entered
         for i in teams:
             if arguments[1] == i.lower():
-#                print("check")
                 game_info = data.get_scoreboard(i)
                 return game_info.print_pitchers(data.get_team_id(i))
         return f"Invalid team {arguments[1]}.\n{print_help()}"
     else:
         return print_help()
+
+    
+def bench(arguments):         
+    #check for additional args
+    if len(arguments) > 1:
+    #check to see if a team was entered
+        for i in teams:
+            if arguments[1] == i.lower():
+                game_info = data.get_scoreboard(i)
+                return game_info.print_bench(data.get_team_id(i))
+        return f"Invalid team {arguments[1]}.\n{print_help()}"
+    else:
+        return print_help()    
+
+    
+def bullpen(arguments):         
+    #check for additional args
+    if len(arguments) > 1:
+    #check to see if a team was entered
+        for i in teams:
+            if arguments[1] == i.lower():
+                game_info = data.get_scoreboard(i)
+                return game_info.print_bullpen(data.get_team_id(i))
+        return f"Invalid team {arguments[1]}.\n{print_help()}"
+    else:
+        return print_help()   
+
 
 def print_help():
     help_dialogue = ('Commands:\n'                        
@@ -173,11 +216,16 @@ def print_help():
         'umpires [team]\n'
         '    Returns the umpires in today\'s [team] game\n'
         'replay [team]\n'
-        '    Returns # of replays used/available for today\'s [team] game\n'
+        '    Returns # of replays used/available in today\'s [team] game\n'
         'batters [team]\n'
         '    Returns the batting order for today\'s [team] game\n'
         'pitchers [team]\n'
         '    Returns the pitchers on the roster for today\'s [team] game'
+        'bench [team]\n'
+        '    Returns players still on the bench in today\'s [team] game\n'
+        'bullpen [team]\n'
+        '    Returns the pitchers in the bullpen in today\'s [team] game'
+
         )
             
     return help_dialogue

@@ -66,6 +66,7 @@ class Game:
             return self.print_fail_status()
         else:
             return "Data unavailable."
+     
         
     def print_umpires(self):
         if self.game_state_code != "S" and self.game_state_code != "P" and self.game_state_code != "UNPOPULATED":
@@ -132,6 +133,7 @@ class Game:
             return f"Challenges (Used - Remaining):\n{self.away_team}: {self.away_challenges_used} - {self.away_challenges_remaining}\n{self.home_team}: {self.home_challenges_used} - {self.home_challenges_remaining}"
         else:
             return "Replay data unavailable."
+
     
     def print_batting_order(self, team_id):
         if self.game_state_code != "S" and self.game_state_code != "P" and self.game_state_code != "UNPOPULATED":
@@ -175,51 +177,143 @@ class Game:
                 return teamstring
         else:
             return "Batting order not found."
+
  
     def print_pitchers(self, team_id):
-        ###fixme
         if self.game_state_code != "S" and self.game_state_code != "P" and self.game_state_code != "UNPOPULATED":
             if team_id == self.away_team_id:
-                batting_order = self.var["liveData"]["boxscore"]["teams"]["away"]["players"]
-                teamdict = {}
+                pitchers = {}
+                pitchers = self.var["liveData"]["boxscore"]["teams"]["away"]["pitchers"]
                 teamstring = ""
-                for i in batting_order:
-                    if "battingOrder" in self.var["liveData"]["boxscore"]["teams"]["away"]["players"][i]:
-                        playername = self.var['liveData']['boxscore']['teams']['away']['players'][i]['person']['fullName']
-                        playerpos = self.var['liveData']['boxscore']['teams']['away']['players'][i]['position']['abbreviation']
-                        batorder = self.var["liveData"]["boxscore"]["teams"]["away"]["players"][i]["battingOrder"]
-                        teamdict[batorder] = f"{playername} {playerpos}"
-                for d in sorted(teamdict.keys()):
-                    if d != "100":
+                increment = 0
+                for i in pitchers:
+                    if increment != 0:
                         teamstring = f"{teamstring}\n"
-                    if int(d)%100 == 0:
-                        teamstring = f"{teamstring}{int(int(d)/100)} "
-                    if int(d)%100:
-                        teamstring = f"{teamstring}   \_"
-                    teamstring = f"{teamstring}{teamdict[d]}"
+                    increment = 1
+                    pitch_id = "ID" + str(i)
+                    pitch_name = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['person']['fullName']
+                    pitch_ip = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['stats']['pitching']['inningsPitched']
+                    pitch_pitches = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['stats']['pitching']['numberOfPitches']
+                    pitch_strikes = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['stats']['pitching']['strikes']
+                    pitch_k = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['stats']['pitching']['strikeOuts']
+                    pitch_walk = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['stats']['pitching']['baseOnBalls']
+                    teamstring = f"{teamstring}{pitch_name} ({pitch_ip} IP, {pitch_pitches} pitches, {pitch_strikes} strikes, {pitch_k} K, {pitch_walk} walks)"
+                    
                 return teamstring
-            elif team_id == self.home_team_id:
-                batting_order = self.var["liveData"]["boxscore"]["teams"]["home"]["players"]
-                teamdict = {}
+                    
+        if team_id == self.home_team_id:
+                pitchers = {}
+                pitchers = self.var["liveData"]["boxscore"]["teams"]["home"]["pitchers"]
                 teamstring = ""
-                for i in batting_order:
-                    if "battingOrder" in self.var["liveData"]["boxscore"]["teams"]["home"]["players"][i]:
-                        playername = self.var['liveData']['boxscore']['teams']['home']['players'][i]['person']['fullName']
-                        playerpos = self.var['liveData']['boxscore']['teams']['home']['players'][i]['position']['abbreviation']
-                        batorder = self.var["liveData"]["boxscore"]["teams"]["home"]["players"][i]["battingOrder"]
-                        teamdict[batorder] = f"{playername} {playerpos}"
-                for d in sorted(teamdict.keys()):
-                    if d != "100":
+                increment = 0
+                for i in pitchers:
+                    if increment != 0:
                         teamstring = f"{teamstring}\n"
-                    if int(d)%100 == 0:
-                        teamstring = f"{teamstring}{int(int(d)/100)} "
-                    if int(d)%100:
-                        teamstring = f"{teamstring}   \_"
-                    teamstring = f"{teamstring}{teamdict[d]}"
+                    increment = 1
+                    pitch_id = "ID" + str(i)
+                    pitch_name = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['person']['fullName']
+                    pitch_ip = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['stats']['pitching']['inningsPitched']
+                    pitch_pitches = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['stats']['pitching']['numberOfPitches']
+                    pitch_strikes = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['stats']['pitching']['strikes']
+                    pitch_k = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['stats']['pitching']['strikeOuts']
+                    pitch_walk = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['stats']['pitching']['baseOnBalls']
+                    teamstring = f"{teamstring}{pitch_name} ({pitch_ip} IP, {pitch_pitches} pitches, {pitch_strikes} strikes, {pitch_k} K, {pitch_walk} walks)"
+                    
                 return teamstring
-        else:
-            return "Batting order not found."            
+        return "No data found."
+
+
+    def print_bullpen(self, team_id):
+        if self.game_state_code != "S" and self.game_state_code != "P" and self.game_state_code != "UNPOPULATED":
+            if team_id == self.away_team_id:
+                pitchers = {}
+                pitchers = self.var["liveData"]["boxscore"]["teams"]["away"]["bullpen"]
+                teamstring = ""
+                increment = 0
+                for i in pitchers:
+                    if increment != 0:
+                        teamstring = f"{teamstring}\n"
+                    increment = 1
+                    pitch_id = "ID" + str(i)
+                    pitch_name = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['person']['fullName']
+                    pitch_ip = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['seasonStats']['pitching']['inningsPitched']
+                    pitch_era = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['seasonStats']['pitching']['era']
+                    pitch_whip = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['seasonStats']['pitching']['whip']
+                    pitch_k_bb = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['seasonStats']['pitching']['strikeoutWalkRatio']
+                    teamstring = f"{teamstring}{pitch_name} ({pitch_era} ERA/{pitch_whip} WHIP/{pitch_k_bb} K/BB, {pitch_ip} IP)"
+                    
+                return teamstring
+                    
+        if team_id == self.home_team_id:
+                pitchers = {}
+                pitchers = self.var["liveData"]["boxscore"]["teams"]["home"]["bullpen"]
+                teamstring = ""
+                increment = 0
+                for i in pitchers:
+                    if increment != 0:
+                        teamstring = f"{teamstring}\n"
+                    increment = 1
+                    pitch_id = "ID" + str(i)
+                    pitch_name = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['person']['fullName']
+                    pitch_ip = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['inningsPitched']
+                    pitch_era = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['era']
+                    pitch_whip = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['whip']
+                    pitch_k_bb = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['strikeoutWalkRatio']
+                    teamstring = f"{teamstring}{pitch_name} ({pitch_era} ERA/{pitch_whip} WHIP/{pitch_k_bb} K/BB, {pitch_ip} IP)"
+                    
+                return teamstring
+        return "No data found."
+
+    def print_bench(self, team_id):
+        if self.game_state_code != "S" and self.game_state_code != "P" and self.game_state_code != "UNPOPULATED":
+            if team_id == self.away_team_id:
+                bench = {}
+                bench = self.var["liveData"]["boxscore"]["teams"]["away"]["bench"]
+                teamstring = ""
+                increment = 0
+                if len(bench) <1 :
+                    return "No players on bench."
+                for i in bench:
+                    if increment != 0:
+                        teamstring = f"{teamstring}\n"
+                    increment = 1
+                    bench_id = "ID" + str(i)
+                    bench_name = self.var['liveData']['boxscore']['teams']['away']['players'][bench_id]['person']['fullName']
+                    bench_pos = self.var['liveData']['boxscore']['teams']['away']['players'][bench_id]['position']['abbreviation']
+                    bench_avg = self.var['liveData']['boxscore']['teams']['away']['players'][bench_id]['seasonStats']['batting']['avg']
+                    bench_obp = self.var['liveData']['boxscore']['teams']['away']['players'][bench_id]['seasonStats']['batting']['obp']
+                    bench_slg = self.var['liveData']['boxscore']['teams']['away']['players'][bench_id]['seasonStats']['batting']['slg']
+                    bench_ab = self.var['liveData']['boxscore']['teams']['away']['players'][bench_id]['seasonStats']['batting']['atBats']
+                    teamstring = f"{teamstring}{bench_name} ({bench_pos}, {bench_avg}/{bench_obp}/{bench_slg}, {bench_ab} AB)"
+                    
+                return teamstring
+                    
+            if team_id == self.home_team_id:
+                bench = {}
+                bench = self.var["liveData"]["boxscore"]["teams"]["home"]["bench"]
+                teamstring = ""
+                increment = 0
+                if len(bench) <1 :
+                    return "No players on bench."
+                for i in bench:
+                    if increment != 0:
+                        teamstring = f"{teamstring}\n"
+                    increment = 1
+                    bench_id = "ID" + str(i)
+                    bench_name = self.var['liveData']['boxscore']['teams']['home']['players'][bench_id]['person']['fullName']
+                    bench_pos = self.var['liveData']['boxscore']['teams']['home']['players'][bench_id]['position']['abbreviation']
+                    bench_avg = self.var['liveData']['boxscore']['teams']['home']['players'][bench_id]['seasonStats']['batting']['avg']
+                    bench_obp = self.var['liveData']['boxscore']['teams']['home']['players'][bench_id]['seasonStats']['batting']['obp']
+                    bench_slg = self.var['liveData']['boxscore']['teams']['home']['players'][bench_id]['seasonStats']['batting']['slg']
+                    bench_ab = self.var['liveData']['boxscore']['teams']['home']['players'][bench_id]['seasonStats']['batting']['atBats']
+                    teamstring = f"{teamstring}{bench_name} ({bench_pos}, {bench_avg}/{bench_obp}/{bench_slg}, {bench_ab} AB)"
+                                        
+                return teamstring
+        return "No data found."    
+
     
-    
+    def print_pk(self):
+        return self.gamePk
+        
     
     

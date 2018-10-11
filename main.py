@@ -3,9 +3,9 @@ import data
 import vocabulary
 
 now = datetime.datetime.now()
-game_info = data.get_scoreboard("Dodgers")
+#game_info = data.get_scoreboard("Dodgers")
 
-print(game_info.gamePk)
+#print(game_info.gamePk)
 #print(game_info.game_state_code)
 #print(game_info.game_state)
 #print(game_info.game_info())
