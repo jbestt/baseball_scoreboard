@@ -259,7 +259,7 @@ class Game:
                     pitch_era = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['era']
                     pitch_whip = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['whip']
                     pitch_k_bb = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['strikeoutWalkRatio']
-                    teamstring = f"{teamstring}{pitch_name} ({pitch_era} ERA/{pitch_whip} WHIP/{pitch_k_bb} K/BB, {pitch_ip} IP)"
+                    teamstring = f"{teamstring}{pitch_name} ({pitch_era} ERA/{pitch_whip} WHIP/{pitch_k_bb} K:BB, {pitch_ip} IP)"
                     
                 return teamstring
         return "No data found."
