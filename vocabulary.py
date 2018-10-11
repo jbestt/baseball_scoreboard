@@ -81,28 +81,28 @@ def userinput(iostring):
             ui = fixnames(arguments)
 #            print(ui)
             #box scores
-            if ui[0] == "box" or ui[0] == "status" or ui[0] == "info":
+            if ui[0] == "!box" or ui[0] == "!status" or ui[0] == "!info":
                 return status(ui)
-            elif ui[0] == "ump" or ui[0] == "umps" or ui[0] == "umpire" or ui[0] == "umpires":
+            elif ui[0] == "!ump" or ui[0] == "!umps" or ui[0] == "!umpire" or ui[0] == "!umpires":
                 return umpires(ui)
-            elif ui[0] == "replay" or ui[0] == "replays" or ui[0] == "challenge" or ui[0] == "challenges":
+            elif ui[0] == "!replay" or ui[0] == "!replays" or ui[0] == "!challenge" or ui[0] == "!challenges":
                 return challenges(ui)
-            elif ui[0] == "batter" or ui[0] == "batters" or ui[0] == "batting" or ui[0] == "order" or ui[0] == "lineup":
+            elif ui[0] == "!batter" or ui[0] == "!batters" or ui[0] == "!batting" or ui[0] == "!order" or ui[0] == "!lineup":
                 return batting_order(ui)
-            elif ui[0] == "pitcher" or ui[0] == "pitchers":
+            elif ui[0] == "!pitcher" or ui[0] == "!pitchers":
                 return pitchers(ui)
-            elif ui[0] == "bench":
+            elif ui[0] == "!bench":
                 return bench(ui)
-            elif ui[0] == "bullpen" or ui[0] == "pen" or ui[0] == "relievers" or ui[0] == "relief":
+            elif ui[0] == "!bullpen" or ui[0] == "!pen" or ui[0] == "!relievers" or ui[0] == "!relief":
                 return bullpen(ui)
-            elif ui[0] == "pk":
+            elif ui[0] == "!pk":
                 return pk(ui)
-            else:
+            elif ui[0][0] == "!":
                 return print_help()
         else:
-            return print_help()
+            return 0
     else:
-        return print_help()
+        return 0
 
 
 def pk(arguments):         
