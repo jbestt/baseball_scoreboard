@@ -7,3 +7,8 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         
         print(self.raw_requestline)
+        
+    def do_POST(self):    
+        self.send_response(200)
+        
+        print(self.raw_requestline)
