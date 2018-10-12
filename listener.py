@@ -25,6 +25,8 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
             for i in client.groups.list_all():
                 if i.id == dp_group_id:
                     deadpool = i
-                               
+                         
+            for i in deadpool.messages.list_all():
+                print(i)      
             print(deadpool.messages.list_all())
             
