@@ -1,4 +1,5 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler
+import vocabulary
 import groupy
 
 class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
@@ -7,15 +8,11 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
         
         self.send_response(200)
         
-#        print(self.raw_requestline)
-        
     def do_POST(self):    
         self.send_response(200)
         if str(self.raw_requestline).find("5e3fdb3a4379a75cf8d06c25fd4b9f78") == -1:
             print("\n\n" + self.raw_requestline)
         else:
-            print("New message")
-           
             gm_api_key = "rYeaadubaCmn1TgT3zcXAgJz49eSpn4SRp65x4Wg"
             scoreboard_bot_id = "799b29a881dc3652b0866e13c1"
             client = groupy.Client.from_token(gm_api_key)
@@ -27,6 +24,6 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
                     deadpool = i
                          
             for i in deadpool.messages.list(limit=1):
-                print(i.text)      
-#            print(deadpool.messages.list(limit=1))
+                print(vocabulary.userinput(i.text))
+
             
