@@ -212,20 +212,19 @@ def bullpen(arguments):
 def print_help():
     help_dialogue = ('Commands:\n'                        
         '!status [team]\n'
-        '-   Returns general info for today\'s [team] game\n'
-        '!umpires [team]\n'
-        '-   Returns the umpires in today\'s [team] game\n'
-        '!replay [team]\n'
-        '-   Returns # of replays used/available in today\'s [team] game\n'
+        '- General info today\'s [team] game\n'
         '!batters [team]\n'
-        '-   Returns the batting order for today\'s [team] game\n'
+        '- Batting order for [team]\n'
         '!pitchers [team]\n'
-        '-   Returns the pitchers on the roster for today\'s [team] game\n'
+        '- Pitchers who played for [team] today\n'
         '!bench [team]\n'
-        '-   Returns players still on the bench in today\'s [team] game\n'
+        '- Players on bench for [team]\n'
         '!bullpen [team]\n'
-        '-   Returns the pitchers in the bullpen in today\'s [team] game'
-
+        '- Pitchers left in bullpen for [team]\n'
+        '!umpires [team]\n'
+        '- Umpires for [team]\n'
+        '!replay [team]\n'
+        '- # of replays used/available for [team]'
         )
             
     return help_dialogue
