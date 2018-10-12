@@ -28,7 +28,7 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
             for i in deadpool.messages.list(limit=1):
                 output = vocabulary.userinput(i.text)
             
-            print("Output: " + output)
+            print("Output: " + str(output))
             
             #if output != "None" and output != "":
             #   client.bots.post(scoreboard_bot_id, output)
