@@ -30,8 +30,8 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
             
             print("Output: " + str(output))
             
-            #if output != "None" and output != "":
-            #   client.bots.post(scoreboard_bot_id, output)
+            if str(output) != "None" and str(output) != "":
+                client.bots.post(scoreboard_bot_id, output)
                 
 
             
