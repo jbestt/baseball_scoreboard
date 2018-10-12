@@ -28,5 +28,5 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
        
             message_page = deadpool.messages.list()
             
-            print(deadpool.messages.list_all().text[0])
+            print(deadpool.messages.list_all()[0])
             
