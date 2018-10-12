@@ -27,6 +27,6 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
                     deadpool = i
                          
             for i in deadpool.messages.list(limit=1):
-                print(i)      
+                print(i.message.text)      
 #            print(deadpool.messages.list(limit=1))
             
