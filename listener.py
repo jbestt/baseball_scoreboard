@@ -23,7 +23,13 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
                 if i.id == dp_group_id:
                     deadpool = i
                          
+            output = ""
+            
             for i in deadpool.messages.list(limit=1):
-                print(vocabulary.userinput(i.text))
+                output = vocabulary.userinput(i.text)
+                
+            if output != "None" and output != "":
+                client.bots.post(scoreboard_bot_id, output)
+                
 
             
