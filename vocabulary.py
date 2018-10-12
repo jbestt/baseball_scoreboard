@@ -224,7 +224,7 @@ def print_help():
         '!umpires [team]\n'
         '- Umpires for [team]\n'
         '!replay [team]\n'
-        '- # of replays used/available for [team]'
+        '- # of replays available for [team]'
         )
             
     return help_dialogue
