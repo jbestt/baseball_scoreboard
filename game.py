@@ -129,7 +129,7 @@ class Game:
     
     
     def print_challenges(self):
-        if self.game_state_code != "S":
+        if self.game_state_code != "S" and self.game_state_code != "P" and self.game_state_code != "UNPOPULATED":
             return f"Challenges (Used - Remaining):\n{self.away_team}: {self.away_challenges_used} - {self.away_challenges_remaining}\n{self.home_team}: {self.home_challenges_used} - {self.home_challenges_remaining}"
         else:
             return "Replay data unavailable."
@@ -240,7 +240,8 @@ class Game:
                     pitch_era = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['seasonStats']['pitching']['era']
                     pitch_whip = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['seasonStats']['pitching']['whip']
                     pitch_k_bb = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['seasonStats']['pitching']['strikeoutWalkRatio']
-                    teamstring = f"{teamstring}{pitch_name} ({pitch_era} ERA/{pitch_whip} WHIP/{pitch_k_bb} K/BB, {pitch_ip} IP)"
+#                    teamstring = f"{teamstring}{pitch_name} ({pitch_era} ERA/{pitch_whip} WHIP/{pitch_k_bb} K:BB, {pitch_ip} IP)"
+                    teamstring = f"{teamstring}{pitch_name} ({pitch_era} ERA)"
                     
                 return teamstring
                     
@@ -259,7 +260,8 @@ class Game:
                     pitch_era = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['era']
                     pitch_whip = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['whip']
                     pitch_k_bb = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['strikeoutWalkRatio']
-                    teamstring = f"{teamstring}{pitch_name} ({pitch_era} ERA/{pitch_whip} WHIP/{pitch_k_bb} K:BB, {pitch_ip} IP)"
+#                    teamstring = f"{teamstring}{pitch_name} ({pitch_era} ERA/{pitch_whip} WHIP/{pitch_k_bb} K:BB, {pitch_ip} IP)"
+                    teamstring = f"{teamstring}{pitch_name} ({pitch_era} ERA)"
                     
                 return teamstring
         return "No data found."
