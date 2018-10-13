@@ -39,6 +39,20 @@ class Game:
                 self.inning_state = self.var["liveData"]["linescore"]["inningState"]
                 self.all_officials = self.var["liveData"]["boxscore"]["officials"]
                 
+                self.alt_info = data.get_tv_runner_info(self.gamePk)
+                
+                self.home_tv = self.alt_info['broadcast']['home']['tv']
+                self.away_tv = self.alt_info['broadcast']['away']['tv']
+                
+                self.baserunners = {'1b':"",'2b':"",'3b':""}
+                if 'runner_on_1b' in self.alt_info['runners_on_base']:
+                    self.baserunners['1b'] = f"{self.alt_info['runners_on_base']['runner_on_1b']['last']}"
+                if 'runner_on_2b' in self.alt_info['runners_on_base']:
+                    self.baserunners['2b'] = f"{self.alt_info['runners_on_base']['runner_on_2b']['last']}"
+                if 'runner_on_3b' in self.alt_info['runners_on_base']:
+                    self.baserunners['3b'] = f"{self.alt_info['runners_on_base']['runner_on_3b']['last']}"
+                        
+#                self.tv
                 
                 if self.game_state_code != "F" and self.game_state_code != "O":
                     self.count_balls = self.var["liveData"]["plays"]["currentPlay"]["count"]["balls"]
@@ -53,7 +67,7 @@ class Game:
                         self.current_play = self.var["liveData"]["plays"]["currentPlay"]["result"]["description"]
                     else:
                         self.current_play = ""
-        
+     
         
     def game_info(self):
         if self.game_state_code == "S" or self.game_state_code == "P":
@@ -102,9 +116,26 @@ class Game:
         else:
             at_bat = f"{self.current_pitcher} pitches to {self.current_batter}."
             outs_balls_strikes = f"\nBalls: {self.count_balls} Strikes: {self.count_strikes} Outs: {self.count_outs}"
-      
-        return f"Game in progress.\n{current_score}\n{inning_info}\n{at_bat}{outs_balls_strikes}"
+
+            runners = self.print_runners()
+
+        return f"Game in progress.\n{current_score}\n{inning_info}\n{runners}{at_bat}{outs_balls_strikes}"
                     
+        
+    def print_runners(self): 
+        runnerstring = "Bases empty"   
+        if self.baserunners['1b'] != "":
+            runnerstring = f"{self.baserunners['1b']} on 1B"
+        if self.baserunners['2b'] != "":
+            if runnerstring != "Bases empty":
+                runnerstring = f"{runnerstring}, "
+            runnerstring = f"{self.baserunners['2b']} on 2B"
+        if self.baserunners['3b'] != "":
+            if runnerstring != "Bases empty":
+                runnerstring = f"{runnerstring}, "
+            runnerstring = f"{self.baserunners['3b']} on 3B"
+        runnerstring = f"{runnerstring}.\n"
+
         
     def print_final(self):
         if self.game_state_code == "F" or self.game_state_code == "O":
