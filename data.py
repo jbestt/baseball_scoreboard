@@ -43,6 +43,7 @@ def get_tv_runner_info(pk,year=now.year,month=now.month,day=now.day):
     alt_scoreboard = json.loads(request.data)
     for i in alt_scoreboard['data']['games']['game']:
         print(i['game_pk'])
+        print("ref" + pk)
         if i['game_pk'] == pk:
             alt_info = i
             
