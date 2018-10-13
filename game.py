@@ -134,6 +134,7 @@ class Game:
                 runnerstring = f"{runnerstring}, "
             runnerstring = f"{self.baserunners['3b']} on 3B"
         runnerstring = f"{runnerstring}.\n"
+        return runnerstring
 
         
     def print_final(self):
