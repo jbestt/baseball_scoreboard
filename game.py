@@ -74,12 +74,10 @@ class Game:
             return self.print_preview()
         elif self.game_state_code == "F" or self.game_state_code == "O":
             return self.print_final()
-        elif self.game_state_code == "I":
-            return self.print_live_status()
         elif self.game_state_code == "UNPOPULATED":
             return self.print_fail_status()
         else:
-            return "Data unavailable."
+            return self.print_live_status()
      
         
     def print_umpires(self):
