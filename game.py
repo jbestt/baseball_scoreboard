@@ -193,11 +193,11 @@ class Game:
                     pitch_id = "ID" + str(i)
                     pitch_name = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['person']['fullName']
                     pitch_ip = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['stats']['pitching']['inningsPitched']
-                    pitch_pitches = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['stats']['pitching']['numberOfPitches']
-                    pitch_strikes = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['stats']['pitching']['strikes']
+                    pitch_er = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['stats']['pitching']['earnedRuns']
+#                    pitch_strikes = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['stats']['pitching']['strikes']
                     pitch_k = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['stats']['pitching']['strikeOuts']
-                    pitch_walk = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['stats']['pitching']['baseOnBalls']
-                    teamstring = f"{teamstring}{pitch_name} ({pitch_ip} IP, {pitch_pitches} pitches, {pitch_strikes} strikes, {pitch_k} K, {pitch_walk} walks)"
+#                    pitch_walk = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['stats']['pitching']['baseOnBalls']
+                    teamstring = f"{teamstring}{pitch_name} ({pitch_ip} IP, {pitch_er} ER, {pitch_k} K)"
                     
                 return teamstring
                     
@@ -213,11 +213,11 @@ class Game:
                     pitch_id = "ID" + str(i)
                     pitch_name = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['person']['fullName']
                     pitch_ip = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['stats']['pitching']['inningsPitched']
-                    pitch_pitches = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['stats']['pitching']['numberOfPitches']
-                    pitch_strikes = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['stats']['pitching']['strikes']
+                    pitch_er = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['stats']['pitching']['earnedRuns']
+#                    pitch_strikes = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['stats']['pitching']['strikes']
                     pitch_k = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['stats']['pitching']['strikeOuts']
-                    pitch_walk = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['stats']['pitching']['baseOnBalls']
-                    teamstring = f"{teamstring}{pitch_name} ({pitch_ip} IP, {pitch_pitches} pitches, {pitch_strikes} strikes, {pitch_k} K, {pitch_walk} walks)"
+#                    pitch_walk = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['stats']['pitching']['baseOnBalls']
+                    teamstring = f"{teamstring}{pitch_name} ({pitch_ip} IP, {pitch_er} ER, {pitch_k} K)"
                     
                 return teamstring
         return "No data found."
@@ -236,10 +236,10 @@ class Game:
                     increment = 1
                     pitch_id = "ID" + str(i)
                     pitch_name = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['person']['fullName']
-                    pitch_ip = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['seasonStats']['pitching']['inningsPitched']
+#                    pitch_ip = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['seasonStats']['pitching']['inningsPitched']
                     pitch_era = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['seasonStats']['pitching']['era']
-                    pitch_whip = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['seasonStats']['pitching']['whip']
-                    pitch_k_bb = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['seasonStats']['pitching']['strikeoutWalkRatio']
+#                    pitch_whip = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['seasonStats']['pitching']['whip']
+#                    pitch_k_bb = self.var['liveData']['boxscore']['teams']['away']['players'][pitch_id]['seasonStats']['pitching']['strikeoutWalkRatio']
 #                    teamstring = f"{teamstring}{pitch_name} ({pitch_era} ERA/{pitch_whip} WHIP/{pitch_k_bb} K:BB, {pitch_ip} IP)"
                     teamstring = f"{teamstring}{pitch_name} ({pitch_era} ERA)"
                     
@@ -256,10 +256,10 @@ class Game:
                     increment = 1
                     pitch_id = "ID" + str(i)
                     pitch_name = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['person']['fullName']
-                    pitch_ip = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['inningsPitched']
+#                    pitch_ip = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['inningsPitched']
                     pitch_era = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['era']
-                    pitch_whip = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['whip']
-                    pitch_k_bb = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['strikeoutWalkRatio']
+#                    pitch_whip = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['whip']
+#                    pitch_k_bb = self.var['liveData']['boxscore']['teams']['home']['players'][pitch_id]['seasonStats']['pitching']['strikeoutWalkRatio']
 #                    teamstring = f"{teamstring}{pitch_name} ({pitch_era} ERA/{pitch_whip} WHIP/{pitch_k_bb} K:BB, {pitch_ip} IP)"
                     teamstring = f"{teamstring}{pitch_name} ({pitch_era} ERA)"
                     
