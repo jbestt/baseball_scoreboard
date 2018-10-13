@@ -114,12 +114,11 @@ class Game:
             at_bat = self.current_play
             outs_balls_strikes = ""
         else:
-            at_bat = f"{self.current_pitcher} pitches to {self.current_batter}."
+            runners = self.print_runners()
+            at_bat = f"{runners}{self.current_pitcher} pitches to {self.current_batter}."
             outs_balls_strikes = f"\nBalls: {self.count_balls} Strikes: {self.count_strikes} Outs: {self.count_outs}"
 
-            runners = self.print_runners()
-
-        return f"Game in progress.\n{current_score}\n{inning_info}\n{runners}{at_bat}{outs_balls_strikes}"
+        return f"Game in progress.\n{current_score}\n{inning_info}\n{at_bat}{outs_balls_strikes}"
                     
         
     def print_runners(self): 
