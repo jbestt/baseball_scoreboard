@@ -39,7 +39,7 @@ def get_game_pk(team,year=now.year,month=now.month,day=now.day):
 
 def get_tv_runner_info(pk,year=now.year,month=now.month,day=now.day):
     http = urllib3.PoolManager()
-    request = http.request('GET','http://http://gd.mlb.com/components/game/mlb/year_{0}/month_{1:02d}/day_{2:02d}/master_scoreboard.json'.format(year,month,day))
+    request = http.request('GET','http://gd.mlb.com/components/game/mlb/year_{0}/month_{1:02d}/day_{2:02d}/master_scoreboard.json'.format(year,month,day))
     alt_scoreboard = json.loads(request.data)
     for i in alt_scoreboard['data']['games']['game']:
         if alt_scoreboard['data']['games']['game'][i]['game_pk'] == pk:
