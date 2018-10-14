@@ -42,8 +42,8 @@ def get_tv_runner_info(pk,year=now.year,month=now.month,day=now.day):
     request = http.request('GET','http://gd.mlb.com/components/game/mlb/year_{0}/month_{1:02d}/day_{2:02d}/master_scoreboard.json'.format(year,month,day))
     alt_scoreboard = json.loads(request.data)
     for i in alt_scoreboard['data']['games']['game']:
-#        print(i['game_pk'])
-#        print("ref" + pk)
+        print(i['game_pk'])
+        print("ref" + pk)
         if str(i['game_pk']) == str(pk):
             alt_info = i
             
