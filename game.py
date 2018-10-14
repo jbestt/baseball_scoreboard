@@ -28,6 +28,7 @@ class Game:
             self.game_state = self.var["gameData"]["status"]["detailedState"]
             self.home_score = self.var["liveData"]["boxscore"]["teams"]["home"]["teamStats"]["batting"]["runs"]
             self.away_score = self.var["liveData"]["boxscore"]["teams"]["away"]["teamStats"]["batting"]["runs"]
+            self.abstract = self.game_state_code = self.var["gameData"]["status"]["abstractGameState"]
             
             if self.game_state_code != "S" and self.game_state_code != "P":
                 self.home_challenges_used = self.var["gameData"]["review"]["home"]["used"]
@@ -39,22 +40,11 @@ class Game:
                 self.inning_state = self.var["liveData"]["linescore"]["inningState"]
                 self.all_officials = self.var["liveData"]["boxscore"]["officials"]
                 
-                self.alt_info = data.get_tv_runner_info(self.gamePk)
                 
-                self.home_tv = self.alt_info['broadcast']['home']['tv']
-                self.away_tv = self.alt_info['broadcast']['away']['tv']
-                
-                self.baserunners = {'1b':"",'2b':"",'3b':""}
-                if 'runner_on_1b' in self.alt_info['runners_on_base']:
-                    self.baserunners['1b'] = f"{self.alt_info['runners_on_base']['runner_on_1b']['last']}"
-                if 'runner_on_2b' in self.alt_info['runners_on_base']:
-                    self.baserunners['2b'] = f"{self.alt_info['runners_on_base']['runner_on_2b']['last']}"
-                if 'runner_on_3b' in self.alt_info['runners_on_base']:
-                    self.baserunners['3b'] = f"{self.alt_info['runners_on_base']['runner_on_3b']['last']}"
                         
 #                self.tv
                 
-                if self.game_state_code != "F" and self.game_state_code != "O":
+                if self.abstract == "Live":
                     self.count_balls = self.var["liveData"]["plays"]["currentPlay"]["count"]["balls"]
                     self.count_strikes = self.var["liveData"]["plays"]["currentPlay"]["count"]["strikes"]
                     self.count_outs = self.var["liveData"]["plays"]["currentPlay"]["count"]["outs"]
@@ -67,7 +57,20 @@ class Game:
                         self.current_play = self.var["liveData"]["plays"]["currentPlay"]["result"]["description"]
                     else:
                         self.current_play = ""
-     
+                        
+                    self.alt_info = data.get_tv_runner_info(self.gamePk)
+                
+                    self.home_tv = self.alt_info['broadcast']['home']['tv']
+                    self.away_tv = self.alt_info['broadcast']['away']['tv']
+                    
+                    self.baserunners = {'1b':"",'2b':"",'3b':""}
+                    if 'runner_on_1b' in self.alt_info['runners_on_base']:
+                        self.baserunners['1b'] = f"{self.alt_info['runners_on_base']['runner_on_1b']['last']}"
+                    if 'runner_on_2b' in self.alt_info['runners_on_base']:
+                        self.baserunners['2b'] = f"{self.alt_info['runners_on_base']['runner_on_2b']['last']}"
+                    if 'runner_on_3b' in self.alt_info['runners_on_base']:
+                        self.baserunners['3b'] = f"{self.alt_info['runners_on_base']['runner_on_3b']['last']}"
+         
         
     def game_info(self):
         if self.game_state_code == "S" or self.game_state_code == "P":
