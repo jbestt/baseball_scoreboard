@@ -28,7 +28,7 @@ class Game:
             self.game_state = self.var["gameData"]["status"]["detailedState"]
             self.home_score = self.var["liveData"]["boxscore"]["teams"]["home"]["teamStats"]["batting"]["runs"]
             self.away_score = self.var["liveData"]["boxscore"]["teams"]["away"]["teamStats"]["batting"]["runs"]
-            self.abstract = self.game_state_code = self.var["gameData"]["status"]["abstractGameState"]
+            self.abstract = self.var["gameData"]["status"]["abstractGameState"]
             
             if self.game_state_code != "S" and self.game_state_code != "P":
                 self.home_challenges_used = self.var["gameData"]["review"]["home"]["used"]
