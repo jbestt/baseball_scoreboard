@@ -111,13 +111,15 @@ class Game:
     def print_live_status(self):
         current_score = f"{self.away_team} {self.away_score} - {self.home_team} {self.home_score}"
         inning_info = f"{self.inning_state} of the {self.inning_ordinal}"
+        if self.inning_state == "End" or self.inning_state == "Middle":
+            return f"Game in progress.\n{current_score}\n{inning_info}"
+        at_bat = ""
+        runners = self.print_runners()
         if self.current_play != "":
             at_bat = self.current_play
-            outs_balls_strikes = ""
         else:
-            runners = self.print_runners()
             at_bat = f"{runners}{self.current_pitcher} pitches to {self.current_batter}."
-            outs_balls_strikes = f"\nBalls: {self.count_balls} Strikes: {self.count_strikes} Outs: {self.count_outs}"
+        outs_balls_strikes = f"\nBalls: {self.count_balls} Strikes: {self.count_strikes} Outs: {self.count_outs}"
 
         return f"Game in progress.\n{current_score}\n{inning_info}\n{at_bat}{outs_balls_strikes}"
                     
