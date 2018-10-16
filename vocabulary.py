@@ -237,6 +237,8 @@ def print_help():
         '- Pitchers left in bullpen for [team]\n'
         '!umpires [team]\n'
         '- Umpires for [team]\n'
+        '!tv [team]\n'
+        '- Displays TV channel for [team]\n'
         '!replay [team]\n'
         '- # of replays available for [team]'
         )
