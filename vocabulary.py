@@ -98,7 +98,7 @@ def userinput(iostring):
             elif ui[0] == "!pk":
                 return pk(ui)
             elif ui[0] == "!tv" or ui[0] == "!television" or ui[0] == "!channel" or ui[0] == "!media":
-                return pk(ui)
+                return tv(ui)
             elif ui[0][0] == "!":
                 return print_help()
         else:
