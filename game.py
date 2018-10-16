@@ -347,6 +347,16 @@ class Game:
                 return teamstring
         return "No data found."    
 
+    def print_tv(self, team_id):
+        if self.abstract == "Live":
+            if team_id == self.away_team_id:
+                info = f"{self.away_team} TV info:\n{self.away_tv}"
+                return info
+                    
+            if team_id == self.home_team_id:
+                info = f"{self.home_team} TV info:\n{self.home_tv}"
+                return info
+        return "No data found."    
     
     def print_pk(self):
         return self.gamePk

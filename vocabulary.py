@@ -97,6 +97,8 @@ def userinput(iostring):
                 return bullpen(ui)
             elif ui[0] == "!pk":
                 return pk(ui)
+            elif ui[0] == "!tv" or ui[0] == "!television" or ui[0] == "!channel" or ui[0] == "!media":
+                return pk(ui)
             elif ui[0][0] == "!":
                 return print_help()
         else:
@@ -165,6 +167,18 @@ def batting_order(arguments):
             if arguments[1] == i.lower():
                 game_info = data.get_scoreboard(i)
                 return game_info.print_batting_order(data.get_team_id(i))
+        return f"Invalid team {arguments[1]}.\n{print_help()}"
+    else:
+        return print_help()
+
+def tv(arguments):         
+    #check for additional args
+    if len(arguments) > 1:
+    #check to see if a team was entered
+        for i in teams:
+            if arguments[1] == i.lower():
+                game_info = data.get_scoreboard(i)
+                return game_info.print_tv(data.get_team_id(i))
         return f"Invalid team {arguments[1]}.\n{print_help()}"
     else:
         return print_help()
