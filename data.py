@@ -71,12 +71,8 @@ def get_tv_runner_info(pk):
 
     
 def get_scoreboard(team):
-    now = datetime.datetime.now()-datetime.timedelta(hours=5, minutes=0)
-    year=now.year
-    month=now.month
-    day=now.day
-
-    game_pk = get_game_pk(team,year,month,day)
+    
+    game_pk = get_game_pk(team)
     http = urllib3.PoolManager()
     request = http.request('GET','http://statsapi.mlb.com/api/v1.1/game/' + str(game_pk) + '/feed/live')
     scoreboard = json.loads(request.data)
