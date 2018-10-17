@@ -5,14 +5,16 @@ import game
 import pytz
 
 #Running from a server in Central Time. Days reset at 3am Pacific.
-now = datetime.datetime.now()-datetime.timedelta(hours=5, minutes=0)
+#now = datetime.datetime.now()-datetime.timedelta(hours=5, minutes=0)
 #deug, remove line below
 #now = datetime.datetime.now()-datetime.timedelta(days=2, hours=5, minutes=0)
 
 def get_team_names():
     return ["Royals","Dodgers","Cubs"]
 
-def get_team_list(year=now.year):
+def get_team_list():
+    now = datetime.datetime.now()-datetime.timedelta(hours=5, minutes=0)
+    year=now.year
     http = urllib3.PoolManager()
     request = http.request('GET','http://statsapi.mlb.com/api/v1/teams?sportId=1&season=%d' % year)
     teams = json.loads(request.data)
@@ -26,7 +28,11 @@ def get_team_id(team):
             return team_id
     return 0
 
-def get_game_pk(team,year=now.year,month=now.month,day=now.day):
+def get_game_pk(team):
+    now = datetime.datetime.now()-datetime.timedelta(hours=5, minutes=0)
+    year=now.year
+    month=now.month
+    day=now.day
     team_id = get_team_id(team)
     http = urllib3.PoolManager()
     request = http.request('GET','http://statsapi.mlb.com/api/v1/schedule?sportId=1&date='
@@ -37,7 +43,13 @@ def get_game_pk(team,year=now.year,month=now.month,day=now.day):
             return(i['gamePk'])
     return 0    
 
-def get_tv_runner_info(pk,year=now.year,month=now.month,day=now.day):
+def get_tv_runner_info(pk):
+    now = datetime.datetime.now()-datetime.timedelta(hours=5, minutes=0)
+    year=now.year
+    month=now.month
+    day=now.day
+
+    
     http = urllib3.PoolManager()
     request = http.request('GET','http://gd.mlb.com/components/game/mlb/year_{0}/month_{1:02d}/day_{2:02d}/master_scoreboard.json'.format(year,month,day))
     alt_scoreboard = json.loads(request.data)
@@ -58,7 +70,12 @@ def get_tv_runner_info(pk,year=now.year,month=now.month,day=now.day):
     return alt_info
 
     
-def get_scoreboard(team,year=now.year,month=now.month,day=now.day):
+def get_scoreboard(team):
+    now = datetime.datetime.now()-datetime.timedelta(hours=5, minutes=0)
+    year=now.year
+    month=now.month
+    day=now.day
+
     game_pk = get_game_pk(team,year,month,day)
     http = urllib3.PoolManager()
     request = http.request('GET','http://statsapi.mlb.com/api/v1.1/game/' + str(game_pk) + '/feed/live')
