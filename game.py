@@ -359,7 +359,7 @@ class Game:
         return "No data found."    
     
     def print_pk(self):
-        return self.gamePk
+        return str(self.gamePk)
         
     
     
