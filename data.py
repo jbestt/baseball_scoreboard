@@ -44,7 +44,9 @@ def get_tv_runner_info(pk,year=now.year,month=now.month,day=now.day):
     alt_info = ""
     if 'game_media' in alt_scoreboard['data']['games']['game']:
         alt_info = alt_scoreboard['data']['games']['game']
-    elif '0' in alt_scoreboard['data']['games']['game']:
+#    elif '0' in alt_scoreboard['data']['games']['game']:
+    else:
+        print("multiple games today")
         for i in alt_scoreboard['data']['games']['game']:
             print(i)
             print(i['game_pk'])
