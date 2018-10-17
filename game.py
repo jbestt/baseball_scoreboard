@@ -59,19 +59,24 @@ class Game:
                         self.current_play = ""
                         
                     self.alt_info = data.get_tv_runner_info(self.gamePk)
-                
-                    self.home_tv = self.alt_info['broadcast']['home']['tv']
-                    self.away_tv = self.alt_info['broadcast']['away']['tv']
                     
-                    self.baserunners = {'1b':"",'2b':"",'3b':""}
-                    if 'runner_on_1b' in self.alt_info['runners_on_base']:
-                        self.baserunners['1b'] = f"{self.alt_info['runners_on_base']['runner_on_1b']['last']}"
-                    if 'runner_on_2b' in self.alt_info['runners_on_base']:
-                        self.baserunners['2b'] = f"{self.alt_info['runners_on_base']['runner_on_2b']['last']}"
-                    if 'runner_on_3b' in self.alt_info['runners_on_base']:
-                        self.baserunners['3b'] = f"{self.alt_info['runners_on_base']['runner_on_3b']['last']}"
-         
-        
+                    if self.alt_info != "":
+                        self.home_tv = self.alt_info['broadcast']['home']['tv']
+                        self.away_tv = self.alt_info['broadcast']['away']['tv']
+                        
+                        self.baserunners = {'1b':"",'2b':"",'3b':""}
+                        if 'runner_on_1b' in self.alt_info['runners_on_base']:
+                            self.baserunners['1b'] = f"{self.alt_info['runners_on_base']['runner_on_1b']['last']}"
+                        if 'runner_on_2b' in self.alt_info['runners_on_base']:
+                            self.baserunners['2b'] = f"{self.alt_info['runners_on_base']['runner_on_2b']['last']}"
+                        if 'runner_on_3b' in self.alt_info['runners_on_base']:
+                            self.baserunners['3b'] = f"{self.alt_info['runners_on_base']['runner_on_3b']['last']}"
+                    else:
+                        self.home_tv = ""
+                        self.away_tv = ""
+                        self.baserunners = ""
+                        
+                        
     def game_info(self):
         if self.game_state_code == "S" or self.game_state_code == "P":
             return self.print_preview()
