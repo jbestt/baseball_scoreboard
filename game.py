@@ -306,7 +306,7 @@ class Game:
         return "No data found."
 
     def print_bench(self, team_id):
-        if self.game_state_code != "S" and self.game_state_code != "P" and self.game_state_code != "UNPOPULATED":
+        if self.abstract.lower() == "live":
             if team_id == self.away_team_id:
                 bench = {}
                 bench = self.var["liveData"]["boxscore"]["teams"]["away"]["bench"]
