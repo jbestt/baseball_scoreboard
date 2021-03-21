@@ -13,10 +13,10 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
         if str(self.raw_requestline).find("5e3fdb3a4379a75cf8d06c25fd4b9f78") == -1:
             print("\n\n" + self.raw_requestline)
         else:
-            gm_api_key = "rYeaadubaCmn1TgT3zcXAgJz49eSpn4SRp65x4Wg"
-            scoreboard_bot_id = "49965cd413951e7f2214fa9dc1"
+            gm_api_key = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            scoreboard_bot_id = "YYYYYYYYYYYYYYYYYYY"
             client = groupy.Client.from_token(gm_api_key)
-            dp_group_id = "4476689"
+            dp_group_id = "4444444444"
            
             for i in client.groups.list_all():
                 if i.id == dp_group_id:
